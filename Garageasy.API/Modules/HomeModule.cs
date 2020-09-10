@@ -12,6 +12,8 @@ namespace Garageasy.API.Modules
         public HomeModule()
         {
             Get("/home", async (req, res) => await res.WriteAsync("Hello from Carter!"));
+
+            Get("/test", async (req, res) => await res.WriteAsync("Alive !"));
         }
 
     }
