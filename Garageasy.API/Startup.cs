@@ -53,10 +53,10 @@ namespace Garageasy.API
         {
             app.UseExceptionHandler("/errorhandler");
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
 
             app.UseHttpsRedirection();
 
