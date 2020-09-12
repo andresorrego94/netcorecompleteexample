@@ -47,6 +47,22 @@ namespace Garageasy.API
             //    };
             //    options.OpenApi.GlobalSecurityDefinitions = new[] { "BearerAuth" };
             //});
+
+            //services.AddDbContext<DbContext, ContextDB>(options =>
+            // options
+            // .UseSqlServer(Configuration.GetConnectionString("IMMRequestConnection"))
+            // .UseLazyLoadingProxies()
+            // );
+
+            //IoCRegister.AddRegistration(services);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -61,6 +77,8 @@ namespace Garageasy.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("CorsPolicy");
+
 
             //app.UseSwaggerUI(opt =>
             //{

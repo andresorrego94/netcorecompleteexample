@@ -8,5 +8,11 @@
     <PackageReference Include="Carter" Version="5.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mappers\" />
+    <Folder Include="Middlewares\" />
+    <Folder Include="ServiceProviders\" />
+  </ItemGroup>
+
 
 </Project>
