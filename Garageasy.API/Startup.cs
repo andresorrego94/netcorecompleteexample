@@ -68,24 +68,14 @@ namespace Garageasy.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseExceptionHandler("/errorhandler");
-
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseCors("CorsPolicy");
-
-
             //app.UseSwaggerUI(opt =>
             //{
             //    opt.RoutePrefix = "openapi/ui";
             //    opt.SwaggerEndpoint("/openapi", "Carter OpenAPI Sample");
             //});
-
             app.UseEndpoints(builder => builder.MapCarter());
         }
     }

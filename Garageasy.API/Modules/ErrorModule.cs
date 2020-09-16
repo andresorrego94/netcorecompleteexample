@@ -1,15 +1,18 @@
 ﻿using Carter;
+using Carter.Response;
+using Garageasy.API.Models;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 
 namespace Garageasy.API.Modules
 {
-    public class ErrorModule: CarterModule
+    public class ErrorModule : CarterModule
     {
         public ErrorModule()
         {
@@ -26,18 +29,46 @@ namespace Garageasy.API.Modules
 
         private Task Test(HttpRequest req, HttpResponse res)
         {
-            string error = string.Empty;
+            Exception exception;
             var feature = req.HttpContext.Features.Get<IExceptionHandlerFeature>();
+
             if (feature != null)
             {
-                if (feature.Error is ArgumentNullException)
-                {
-                    res.StatusCode = 402;
-                }
-                error = feature.Error.ToString();
+                res.StatusCode = (int)GetErrorCode(feature.Error);
+                exception = feature.Error;
+            }
+            else
+            {
+                exception = new Exception("An unknown error ocurred");
             }
 
-            return res.WriteAsync($"There has been an error{Environment.NewLine}{error}");
+            //At this point we can do a log into the database.
+            Console.Write(exception.ToString());
+
+            var errorMsg = feature?.Error?.Message;
+            return res.Negotiate(new ApiResponse<string>
+            {
+                Error = new Error(errorMsg)
+            });
+        }
+
+        private static HttpStatusCode GetErrorCode(Exception e)
+        {
+            switch (e)
+            {
+                case ArgumentException _:
+                    return HttpStatusCode.BadRequest;
+                case FormatException _:
+                    return HttpStatusCode.BadRequest;
+                case AuthenticationException _:
+                    return HttpStatusCode.Forbidden;
+                case KeyNotFoundException _:
+                    return HttpStatusCode.NotFound;
+                case NotImplementedException _:
+                    return HttpStatusCode.NotImplemented;
+                default:
+                    return HttpStatusCode.InternalServerError;
+            }
         }
     }
 }

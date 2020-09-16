@@ -13,7 +13,8 @@ namespace Garageasy.API.Modules
         {
             Get("/home", async (req, res) => await res.WriteAsync("Hello from Carter!"));
 
-            Get("/errortest", async (req, res) => {                
+            Get("/errortest", async (req, res) => {
+                throw new ArgumentException("Error de prueba");
                 await res.WriteAsync("Alive 3!");                
             });
         }

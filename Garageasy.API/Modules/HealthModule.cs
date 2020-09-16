@@ -10,17 +10,9 @@ namespace Garageasy.API.Modules
     {
         public HealthModule()
         {
-            Get("/health", async (req, res) =>
-            {
-                //var request = req.Bind<WeatherForecast>();
+            Get("/health", async (req, res) => await res.WriteAsync("Alive !"));
 
-                await res.Negotiate(new ApiResponse<string>
-                {
-                    Data = "Alive !"
-                });
-            });
-
-            Get("/test", async (req, res) => await res.WriteAsync("Alive 1!"));
+            Get("/test", async (req, res) => await res.WriteAsync("Alive !"));
         }
     }
 }
