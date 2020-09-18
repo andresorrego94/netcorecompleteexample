@@ -11,6 +11,7 @@
   <ItemGroup>
     <Folder Include="Mappers\" />
     <Folder Include="Middlewares\" />
+    <Folder Include="Config\" />
     <Folder Include="ServiceProviders\" />
   </ItemGroup>
 

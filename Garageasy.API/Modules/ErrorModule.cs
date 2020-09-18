@@ -18,16 +18,16 @@ namespace Garageasy.API.Modules
         {
             this.Get("/errorhandler", (req, res) =>
             {
-                return Test(req, res);
+                return HandleError(req, res);
             });
 
             this.Post("/errorhandler", (req, res) =>
             {
-                return Test(req, res);
+                return HandleError(req, res);
             });
         }
 
-        private Task Test(HttpRequest req, HttpResponse res)
+        private Task HandleError(HttpRequest req, HttpResponse res)
         {
             Exception exception;
             var feature = req.HttpContext.Features.Get<IExceptionHandlerFeature>();
