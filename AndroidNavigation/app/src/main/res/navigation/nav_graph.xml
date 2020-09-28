@@ -34,6 +34,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
     </fragment>
+
     <fragment
         android:id="@+id/chooseRecipientFragment"
         android:name="com.android.example.navigationcomponentsexample.ChooseRecipientFragment"
@@ -43,25 +44,39 @@
             android:id="@+id/action_chooseRecipientFragment_to_specifyAmountFragment"
             app:destination="@id/specifyAmountFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/confirmationFragment"
-        android:name="com.android.example.navigationcomponentsexample.ConfirmationFragment"
-        android:label="fragment_confirmation"
-        tools:layout="@layout/fragment_confirmation" />
+
     <fragment
         android:id="@+id/specifyAmountFragment"
         android:name="com.android.example.navigationcomponentsexample.SpecifyAmountFragment"
         android:label="fragment_specify_amount"
         tools:layout="@layout/fragment_specify_amount" >
+        <argument
+            android:name="recipient"
+            android:defaultValue="None"/>
         <action
             android:id="@+id/action_specifyAmountFragment_to_confirmationFragment"
             app:destination="@id/confirmationFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/confirmationFragment"
+        android:name="com.android.example.navigationcomponentsexample.ConfirmationFragment"
+        android:label="fragment_confirmation"
+        tools:layout="@layout/fragment_confirmation">
+        <argument
+            android:name="recipient"
+            android:defaultValue="None"/>
+        <argument
+            android:name="amount"
+            app:argType="com.android.example.navigationcomponentsexample.Money"/>
+    </fragment>
+
     <fragment
         android:id="@+id/viewBalanceFragment"
         android:name="com.android.example.navigationcomponentsexample.ViewBalanceFragment"
         android:label="fragment_view_balance"
         tools:layout="@layout/fragment_view_balance" />
+
     <fragment
         android:id="@+id/viewTransactionFragment"
         android:name="com.android.example.navigationcomponentsexample.ViewTransactionFragment"
